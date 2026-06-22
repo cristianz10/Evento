@@ -3,311 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitacion</title>
-  <meta property="og:title" content="Invitacion">
-  <meta property="og:description" content="Abre para ver tu invitacion">
+  <title>Cumplea&#241;os Maxima y Virginia</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <style>
-    :root {
-      --accent: #8B4559;
-      --accent-dark: #5c2535;
-      --accent-light: #D4A5A5;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; min-height: 100%; background: #1a0a0d; }
-    .font-script  { font-family: 'Great Vibes', cursive; }
-    .font-display { font-family: 'Playfair Display', serif; }
-    .font-elegant { font-family: 'Cormorant Garamond', serif; }
-
-    /* ── OVERLAY ── */
-    #overlay {
-      position: fixed; inset: 0; z-index: 9999;
-      background: rgba(18,4,7,.97);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 24px; cursor: pointer;
-    }
-    #overlay img {
-      width: 140px; height: 180px; object-fit: cover; object-position: top;
-      border-radius: 16px; border: 2px solid rgba(212,165,165,.5);
-      margin-bottom: 20px; display: none;
-    }
-    #overlay h2 { font-family:'Great Vibes',cursive; font-size:2.8rem; color:#D4A5A5; margin:0 0 6px; }
-    #overlay p  { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:#f0d0d8; margin:0 0 28px; }
-    #overlay button {
-      background: linear-gradient(135deg,#5c2535,#8B4559);
-      color:#fff; border:none; border-radius:999px;
-      padding:15px 44px; font-size:1.1rem;
-      font-family:'Playfair Display',serif;
-      cursor:pointer; box-shadow:0 4px 20px rgba(139,69,89,.5);
-      transition: transform .15s;
-    }
-    #overlay button:active { transform: scale(.96); }
-
-    /* ── PARTICLES ── */
-    .particle {
-      position: fixed; pointer-events: none; z-index: 100;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      0%   { transform: translateY(-10vh) rotate(0deg); opacity: .9; }
-      100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
-    }
-
-    /* ── CARD ANIMATIONS ── */
-    @keyframes cardIn {
-      0%   { opacity:0; transform: perspective(800px) rotateY(-20deg) scale(.85) translateY(40px); }
-      60%  { opacity:1; transform: perspective(800px) rotateY(5deg) scale(1.03) translateY(-8px); }
-      80%  { transform: perspective(800px) rotateY(-2deg) scale(.99) translateY(2px); }
-      100% { opacity:1; transform: perspective(800px) rotateY(0) scale(1) translateY(0); }
-    }
-    @keyframes shimmer {
-      0%,100% { box-shadow: 0 0 18px rgba(139,69,89,.45), 0 0 38px rgba(114,47,55,.2), inset 0 0 18px rgba(255,255,255,.07); }
-      50%      { box-shadow: 0 0 32px rgba(212,165,165,.65), 0 0 55px rgba(139,69,89,.32), inset 0 0 24px rgba(255,255,255,.13); }
-    }
-    @keyframes borderSpin {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    @keyframes glow {
-      0%,100% { text-shadow: 0 0 10px rgba(139,69,89,.45), 0 0 22px rgba(139,69,89,.22); }
-      50%     { text-shadow: 0 0 22px rgba(139,69,89,.8), 0 0 44px rgba(139,69,89,.35); }
-    }
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50%     { transform: translateY(-10px); }
-    }
-    @keyframes pulseNum {
-      0%,100% { transform: scale(1); }
-      50%     { transform: scale(1.08); }
-    }
-    @keyframes fadeUp {
-      from { opacity:0; transform: translateY(28px); }
-      to   { opacity:1; transform: translateY(0); }
-    }
-
-    .card-wrap      { animation: cardIn 1.15s cubic-bezier(.22,1,.36,1) both; }
-    .photo-shimmer  { animation: shimmer 3.2s ease-in-out infinite; border-radius: 12px; overflow: hidden; }
-    .gradient-ring  {
-      background: linear-gradient(45deg,var(--accent-dark),var(--accent),var(--accent-light),var(--accent),var(--accent-dark));
-      background-size: 400% 400%;
-      animation: borderSpin 4s ease infinite;
-      padding: 3px; border-radius: 16px;
-    }
-    .glow-text    { animation: glow 2.2s ease-in-out infinite; }
-    .float-anim   { animation: float 3.5s ease-in-out infinite; }
-    .pulse-num    { animation: pulseNum 1s ease-in-out infinite; display: inline-block; }
-    .fade-up      { animation: fadeUp .7s ease both; }
-    .fade-up-d1   { animation-delay: .1s; }
-    .fade-up-d2   { animation-delay: .22s; }
-    .fade-up-d3   { animation-delay: .34s; }
-    .fade-up-d4   { animation-delay: .46s; }
-
-    /* ── FORM ── */
-    .inp {
-      width:100%; background:rgba(139,69,89,.14);
-      border:1px solid rgba(139,69,89,.4); color:#f8fafc;
-      border-radius:14px; padding:13px 16px;
-      font-family:'Cormorant Garamond',serif; font-size:1.1rem;
-      outline:none; transition: border-color .2s;
-    }
-    .inp:focus { border-color: #D4A5A5; }
-    .radio-group { display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
-    .radio-label {
-      display:flex; align-items:center; gap:8px;
-      background:rgba(139,69,89,.14); border:1px solid rgba(139,69,89,.35);
-      border-radius:12px; padding:10px 16px; cursor:pointer;
-      font-family:'Cormorant Garamond',serif; font-size:1rem; color:#f0d0d8;
-      transition: background .2s, border-color .2s;
-    }
-    .radio-label:has(input:checked) { background:rgba(139,69,89,.45); border-color:#D4A5A5; }
-    .radio-label input { accent-color:#D4A5A5; }
-
-    /* ── AUDIO BTN ── */
-    #audio-btn {
-      position:fixed; bottom:20px; right:20px; z-index:9000;
-      width:52px; height:52px; border-radius:50%; border:none;
-      background: linear-gradient(135deg,var(--accent-dark),var(--accent));
-      color:#fff; font-size:20px; cursor:pointer;
-      box-shadow:0 4px 16px rgba(139,69,89,.55);
-      display:none; align-items:center; justify-content:center;
-      transition: transform .15s;
-    }
-    #audio-btn:active { transform: scale(.92); }
-
-    .section-card {
-      background: linear-gradient(135deg,rgba(45,12,18,.55),rgba(61,37,42,.35));
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(139,69,89,.28);
-      border-radius: 24px;
-      padding: 28px 24px;
-    }
-    .hidden { display:none !important; }
-
-    .detail-row {
-      display:flex; align-items:flex-start; gap:14px;
-      background:rgba(139,69,89,.1); border:1px solid rgba(139,69,89,.18);
-      border-radius:16px; padding:14px;
-    }
-    .detail-icon {
-      width:46px; height:46px; border-radius:12px; flex-shrink:0;
-      background: linear-gradient(135deg,#722F37,#8B4559);
-      display:flex; align-items:center; justify-content:center; font-size:22px;
-    }
+    :root{--accent:#c084a0;--accent-dark:#8b4c6a;--accent-light:#f0c0d8;}
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;min-height:100%;background:#1a0a12;}
+    .font-script{font-family:'Great Vibes',cursive;}
+    .font-display{font-family:'Playfair Display',serif;}
+    .font-elegant{font-family:'Cormorant Garamond',serif;}
+    #overlay{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,rgba(14,4,10,.97),rgba(28,8,18,.96));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
+    #ov-photo{width:150px;height:190px;object-fit:cover;object-position:top;border-radius:20px;margin-bottom:20px;border:2px solid rgba(240,192,216,.5);box-shadow:0 0 30px rgba(192,132,160,.4);}
+    #overlay h2{font-family:'Great Vibes',cursive;font-size:3rem;color:#f0c0d8;margin:0 0 6px;}
+    #overlay p{font-family:'Cormorant Garamond',serif;font-size:1.12rem;color:#f5dce8;margin:0 0 28px;}
+    #overlay button{background:linear-gradient(135deg,#8b4c6a,#c084a0);color:#fff;border:none;border-radius:999px;padding:16px 48px;font-size:1.1rem;font-family:'Playfair Display',serif;cursor:pointer;box-shadow:0 4px 22px rgba(192,132,160,.55);transition:transform .15s;}
+    #overlay button:active{transform:scale(.96);}
+    .particle{position:fixed;pointer-events:none;z-index:100;animation:fall linear infinite;}
+    @keyframes fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:.9;}100%{transform:translateY(105vh) rotate(720deg);opacity:0;}}
+    @keyframes cardIn{0%{opacity:0;transform:perspective(800px) rotateY(-20deg) scale(.85) translateY(40px);}60%{opacity:1;transform:perspective(800px) rotateY(5deg) scale(1.03) translateY(-8px);}80%{transform:perspective(800px) rotateY(-2deg) scale(.99) translateY(2px);}100%{opacity:1;transform:perspective(800px) rotateY(0) scale(1) translateY(0);}}
+    @keyframes shimmer{0%,100%{box-shadow:0 0 18px rgba(192,132,160,.45),0 0 38px rgba(139,76,106,.2),inset 0 0 18px rgba(255,255,255,.07);}50%{box-shadow:0 0 32px rgba(240,192,216,.65),0 0 55px rgba(192,132,160,.32),inset 0 0 24px rgba(255,255,255,.13);}}
+    @keyframes borderSpin{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+    @keyframes glow{0%,100%{text-shadow:0 0 12px rgba(192,132,160,.5),0 0 24px rgba(192,132,160,.25);}50%{text-shadow:0 0 24px rgba(240,192,216,.85),0 0 48px rgba(192,132,160,.4);}}
+    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+    @keyframes pulseNum{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+    .card-wrap{animation:cardIn 1.15s cubic-bezier(.22,1,.36,1) both;}
+    .photo-shimmer{animation:shimmer 3.2s ease-in-out infinite;border-radius:12px;overflow:hidden;}
+    .gradient-ring{background:linear-gradient(45deg,var(--accent-dark),var(--accent),var(--accent-light),var(--accent),var(--accent-dark));background-size:400% 400%;animation:borderSpin 4s ease infinite;padding:3px;border-radius:16px;}
+    .glow-text{animation:glow 2.2s ease-in-out infinite;}
+    .float-anim{animation:float 3.5s ease-in-out infinite;}
+    .pulse-num{animation:pulseNum 1s ease-in-out infinite;display:inline-block;}
+    .fade-up{animation:fadeUp .7s ease both;}
+    .d1{animation-delay:.1s;}.d2{animation-delay:.22s;}.d3{animation-delay:.34s;}.d4{animation-delay:.46s;}
+    .inp{width:100%;background:rgba(192,132,160,.13);border:1px solid rgba(192,132,160,.38);color:#f8fafc;border-radius:14px;padding:13px 16px;font-family:'Cormorant Garamond',serif;font-size:1.1rem;outline:none;transition:border-color .2s;}
+    .inp:focus{border-color:#f0c0d8;}
+    .radio-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+    .radio-label{display:flex;align-items:center;gap:8px;background:rgba(192,132,160,.13);border:1px solid rgba(192,132,160,.33);border-radius:12px;padding:10px 16px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#f5dce8;transition:background .2s,border-color .2s;}
+    .radio-label:has(input:checked){background:rgba(192,132,160,.42);border-color:#f0c0d8;}
+    .radio-label input{accent-color:#f0c0d8;}
+    #audio-btn{position:fixed;bottom:20px;right:20px;z-index:9000;width:52px;height:52px;border-radius:50%;border:none;background:linear-gradient(135deg,#8b4c6a,#c084a0);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 4px 16px rgba(192,132,160,.55);display:none;align-items:center;justify-content:center;}
+    .section-card{background:linear-gradient(135deg,rgba(30,8,20,.6),rgba(50,20,35,.4));backdrop-filter:blur(8px);border:1px solid rgba(192,132,160,.25);border-radius:24px;padding:28px 24px;}
+    .hidden{display:none!important;}
+    .detail-row{display:flex;align-items:flex-start;gap:14px;background:rgba(192,132,160,.09);border:1px solid rgba(192,132,160,.16);border-radius:16px;padding:14px;}
+    .detail-icon{width:46px;height:46px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,#8b4c6a,#c084a0);display:flex;align-items:center;justify-content:center;font-size:22px;}
   </style>
 </head>
 <body class="text-white">
 
-<!-- OVERLAY -->
 <div id="overlay">
-  <img id="ov-photo" alt="foto">
-  <h2 id="ov-name">✨ Te invito ✨</h2>
-  <p id="ov-tag">Toca para abrir tu invitacion</p>
-  <button onclick="openInvitation()">🎁 Abrir invitacion</button>
+  <img id="ov-photo" src="FOTO_PLACEHOLDER" alt="Maxima y Virginia">
+  <h2>&#10024; Maxi &amp; Vir &#10024;</h2>
+  <p>Te invitan a su festejo de cumplea&#241;os</p>
+  <button onclick="openInvitation()">&#127881; Abrir invitacion</button>
 </div>
 
-<!-- AUDIO -->
-<audio id="audio" loop preload="auto"></audio>
-<button id="audio-btn" onclick="toggleAudio()">🔊</button>
+<audio id="audio" loop preload="auto" src="AUDIO_PLACEHOLDER"></audio>
+<button id="audio-btn" onclick="toggleAudio()">&#128266;</button>
 
-<!-- PARTICLES -->
 <div id="ptcl" style="position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50;"></div>
 
-<!-- MAIN -->
-<div id="main" style="min-height:100vh; background:linear-gradient(135deg,#1a0a0d 0%,#2D1B1E 30%,#3D252A 60%,#1a0a0d 100%);">
-<div style="max-width:480px; margin:0 auto; padding:32px 16px;">
+<div style="min-height:100vh;background:linear-gradient(135deg,#1a0a12 0%,#2d1020 30%,#3d1830 60%,#1a0a12 100%);">
+<div style="max-width:480px;margin:0 auto;padding:32px 16px;">
 
-  <!-- HEADER -->
   <section class="text-center mb-10 fade-up">
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px;">
-      <div style="height:1px;width:60px;background:linear-gradient(to right,transparent,rgba(212,165,165,.6));"></div>
-      <span style="font-size:1.6rem;">✨👑✨</span>
-      <div style="height:1px;width:60px;background:linear-gradient(to left,transparent,rgba(212,165,165,.6));"></div>
+      <div style="height:1px;width:60px;background:linear-gradient(to right,transparent,rgba(240,192,216,.6));"></div>
+      <span style="font-size:1.6rem;">&#10024;&#127874;&#10024;</span>
+      <div style="height:1px;width:60px;background:linear-gradient(to left,transparent,rgba(240,192,216,.6));"></div>
     </div>
-    <h1 id="el-title" class="font-script glow-text float-anim" style="font-size:3.5rem;background:linear-gradient(to right,#f9a8d4,#fde68a,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:0 0 8px;"></h1>
-    <h2 id="el-name" class="font-display" style="font-size:2.4rem;color:#D4A5A5;margin:6px 0 10px;letter-spacing:.06em;"></h2>
-    <p id="el-tagline" class="font-elegant" style="font-size:1.15rem;color:rgba(240,208,216,.82);margin:0;"></p>
+    <h1 class="font-script glow-text float-anim" style="font-size:3.8rem;background:linear-gradient(to right,#fda4cf,#fde68a,#fda4cf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:0 0 6px;">Festejo de Cumplea&#241;os</h1>
+    <h2 class="font-display" style="font-size:2.5rem;color:#f0c0d8;margin:8px 0 10px;letter-spacing:.05em;">Maxima &amp; Virginia</h2>
+    <p class="font-elegant" style="font-size:1.18rem;color:rgba(245,220,232,.82);margin:0;">Nos juntamos a celebrar juntas &#127882;</p>
   </section>
 
-  <!-- FOTO CARD -->
-  <section class="text-center mb-10 fade-up fade-up-d1">
-    <div class="card-wrap" style="position:relative;display:inline-block;width:260px;height:330px;">
-      <!-- corner ornaments -->
-      <div style="position:absolute;top:-6px;left:-6px;width:22px;height:22px;border-top:2px solid rgba(212,165,165,.7);border-left:2px solid rgba(212,165,165,.7);border-radius:3px 0 0 0;"></div>
-      <div style="position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-top:2px solid rgba(212,165,165,.7);border-right:2px solid rgba(212,165,165,.7);border-radius:0 3px 0 0;"></div>
-      <div style="position:absolute;bottom:-6px;left:-6px;width:22px;height:22px;border-bottom:2px solid rgba(212,165,165,.7);border-left:2px solid rgba(212,165,165,.7);border-radius:0 0 0 3px;"></div>
-      <div style="position:absolute;bottom:-6px;right:-6px;width:22px;height:22px;border-bottom:2px solid rgba(212,165,165,.7);border-right:2px solid rgba(212,165,165,.7);border-radius:0 0 3px 0;"></div>
+  <section class="text-center mb-10 fade-up d1">
+    <div class="card-wrap" style="position:relative;display:inline-block;width:280px;height:350px;">
+      <div style="position:absolute;top:-7px;left:-7px;width:24px;height:24px;border-top:2px solid rgba(240,192,216,.75);border-left:2px solid rgba(240,192,216,.75);border-radius:3px 0 0 0;"></div>
+      <div style="position:absolute;top:-7px;right:-7px;width:24px;height:24px;border-top:2px solid rgba(240,192,216,.75);border-right:2px solid rgba(240,192,216,.75);border-radius:0 3px 0 0;"></div>
+      <div style="position:absolute;bottom:-7px;left:-7px;width:24px;height:24px;border-bottom:2px solid rgba(240,192,216,.75);border-left:2px solid rgba(240,192,216,.75);border-radius:0 0 0 3px;"></div>
+      <div style="position:absolute;bottom:-7px;right:-7px;width:24px;height:24px;border-bottom:2px solid rgba(240,192,216,.75);border-right:2px solid rgba(240,192,216,.75);border-radius:0 0 3px 0;"></div>
       <div class="gradient-ring" style="height:100%;">
-        <div class="photo-shimmer" style="height:100%;background:linear-gradient(135deg,rgba(114,47,55,.4),rgba(26,10,13,.6));">
-          <img id="el-photo" alt="foto" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+        <div class="photo-shimmer" style="height:100%;background:linear-gradient(135deg,rgba(139,76,106,.4),rgba(26,10,18,.6));">
+          <img src="FOTO_PLACEHOLDER" alt="Maxima y Virginia" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COUNTDOWN -->
-  <section id="sec-cd" class="mb-8 hidden fade-up fade-up-d2">
+  <section id="sec-cd" class="mb-8 fade-up d2">
     <div class="section-card text-center">
-      <p class="font-elegant" style="font-size:.78rem;letter-spacing:.15em;color:rgba(212,165,165,.6);text-transform:uppercase;margin:0 0 14px;">⏳ Cuenta regresiva</p>
-      <p id="cd-text" class="font-elegant" style="font-size:1.15rem;color:rgba(240,208,216,.9);line-height:2;">
+      <p class="font-elegant" style="font-size:.78rem;letter-spacing:.15em;color:rgba(240,192,216,.6);text-transform:uppercase;margin:0 0 14px;">&#9203; Cuenta regresiva</p>
+      <p id="cd-text" class="font-elegant" style="font-size:1.15rem;color:rgba(245,220,232,.9);line-height:2.1;">
         Faltan
-        <span id="cd-d" class="pulse-num font-display" style="font-size:1.7rem;color:#f9a8d4;font-weight:700;">00</span> <span style="color:rgba(212,165,165,.7);">dias</span>,
-        <span id="cd-h" class="pulse-num font-display" style="font-size:1.7rem;color:#f9a8d4;font-weight:700;">00</span> <span style="color:rgba(212,165,165,.7);">hs</span>,
-        <span id="cd-m" class="pulse-num font-display" style="font-size:1.7rem;color:#f9a8d4;font-weight:700;">00</span> <span style="color:rgba(212,165,165,.7);">min</span>
-        y <span id="cd-s" class="pulse-num font-display" style="font-size:1.7rem;color:#f9a8d4;font-weight:700;">00</span> <span style="color:rgba(212,165,165,.7);">seg</span> ✨
+        <span id="cd-d" class="pulse-num font-display" style="font-size:1.7rem;color:#fda4cf;font-weight:700;">00</span> <span style="color:rgba(240,192,216,.7);">dias</span>,
+        <span id="cd-h" class="pulse-num font-display" style="font-size:1.7rem;color:#fda4cf;font-weight:700;">00</span> <span style="color:rgba(240,192,216,.7);">hs</span>,
+        <span id="cd-m" class="pulse-num font-display" style="font-size:1.7rem;color:#fda4cf;font-weight:700;">00</span> <span style="color:rgba(240,192,216,.7);">min</span>
+        y <span id="cd-s" class="pulse-num font-display" style="font-size:1.7rem;color:#fda4cf;font-weight:700;">00</span> <span style="color:rgba(240,192,216,.7);">seg</span> &#127881;
       </p>
-      <p id="cd-done" class="font-script hidden" style="font-size:1.8rem;color:#f9a8d4;">¡Ya es la noche especial! ✨</p>
+      <p id="cd-done" class="font-script hidden" style="font-size:2rem;color:#fda4cf;">&#161;Ya es la noche especial! &#10024;</p>
     </div>
   </section>
 
-  <!-- DETALLES -->
-  <section id="sec-details" class="mb-8 fade-up fade-up-d2">
+  <section class="mb-8 fade-up d2">
     <div class="section-card">
-      <p class="font-elegant text-center" style="font-size:.78rem;letter-spacing:.15em;color:rgba(212,165,165,.6);text-transform:uppercase;margin:0 0 6px;">Te invito a celebrar</p>
-      <h3 class="font-script text-center" style="font-size:2rem;color:#f9a8d4;margin:0 0 20px;">Los detalles</h3>
+      <p class="font-elegant text-center" style="font-size:.78rem;letter-spacing:.15em;color:rgba(240,192,216,.6);text-transform:uppercase;margin:0 0 6px;">Te invitamos a celebrar</p>
+      <h3 class="font-script text-center" style="font-size:2.1rem;color:#fda4cf;margin:0 0 20px;">Los detalles</h3>
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div class="detail-row">
-          <div class="detail-icon">📅</div>
-          <div><p class="font-display" style="color:#f9a8d4;margin:0 0 2px;">Fecha</p><p id="el-date" class="font-elegant" style="color:rgba(240,208,216,.9);font-size:1.1rem;margin:0;"></p></div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-icon">🕐</div>
-          <div><p class="font-display" style="color:#f9a8d4;margin:0 0 2px;">Horario</p><p id="el-time" class="font-elegant" style="color:rgba(240,208,216,.9);font-size:1.1rem;margin:0;"></p></div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-icon">📍</div>
-          <div>
-            <p id="el-venue" class="font-display" style="color:#f9a8d4;margin:0 0 2px;"></p>
-            <p id="el-address" class="font-elegant" style="color:rgba(240,208,216,.9);font-size:1.1rem;margin:0;"></p>
-            <p id="el-city" class="font-elegant" style="color:rgba(212,165,165,.6);font-size:.92rem;margin:2px 0 0;"></p>
-          </div>
-        </div>
+        <div class="detail-row"><div class="detail-icon">&#128197;</div><div><p class="font-display" style="color:#fda4cf;margin:0 0 2px;">Fecha</p><p class="font-elegant" style="color:rgba(245,220,232,.9);font-size:1.1rem;margin:0;">S&#225;bado 29 de Agosto de 2026</p></div></div>
+        <div class="detail-row"><div class="detail-icon">&#128336;</div><div><p class="font-display" style="color:#fda4cf;margin:0 0 2px;">Horario</p><p class="font-elegant" style="color:rgba(245,220,232,.9);font-size:1.1rem;margin:0;">21:00 hs a 04:00 hs</p></div></div>
+        <div class="detail-row"><div class="detail-icon">&#128205;</div><div><p class="font-display" style="color:#fda4cf;margin:0 0 2px;">Fiestas Presente</p><p class="font-elegant" style="color:rgba(245,220,232,.9);font-size:1.1rem;margin:0;">Laprida 3027</p><p class="font-elegant" style="color:rgba(240,192,216,.6);font-size:.92rem;margin:2px 0 0;">Quilmes</p></div></div>
       </div>
     </div>
   </section>
 
-  <!-- VESTIMENTA -->
-  <section id="sec-dress" class="mb-8 fade-up fade-up-d3">
+  <section class="mb-8 fade-up d3">
     <div class="section-card text-center">
-      <p class="font-elegant" style="font-size:.78rem;letter-spacing:.15em;color:rgba(212,165,165,.6);text-transform:uppercase;margin:0 0 6px;">Vestimenta</p>
-      <h3 class="font-script" style="font-size:2rem;color:#f9a8d4;margin:0 0 16px;">Codigo de vestimenta</h3>
-      <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(139,69,89,.2);border:1px solid rgba(212,165,165,.35);border-radius:999px;padding:10px 28px;margin-bottom:12px;">
-        <span>👗</span><span id="el-dress" class="font-display" style="font-size:1.2rem;color:#f8fafc;letter-spacing:.1em;"></span><span>🎩</span>
+      <p class="font-elegant" style="font-size:.78rem;letter-spacing:.15em;color:rgba(240,192,216,.6);text-transform:uppercase;margin:0 0 6px;">Vestimenta</p>
+      <h3 class="font-script" style="font-size:2.1rem;color:#fda4cf;margin:0 0 16px;">Codigo de vestimenta</h3>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(192,132,160,.18);border:1px solid rgba(240,192,216,.35);border-radius:999px;padding:10px 28px;margin-bottom:12px;">
+        <span>&#128087;</span><span class="font-display" style="font-size:1.2rem;color:#f8fafc;letter-spacing:.1em;">Elegante</span><span>&#127913;</span>
       </div>
-      <p id="el-dress-note" class="font-elegant" style="font-size:1.1rem;color:rgba(240,208,216,.8);margin:0;"></p>
+      <p class="font-elegant" style="font-size:1.1rem;color:rgba(245,220,232,.8);margin:0;">Ven&#237; linda para la foto &#128248;</p>
     </div>
   </section>
 
-  <!-- REGALO -->
-  <section id="sec-gift" class="mb-8 hidden fade-up fade-up-d3">
+  <section class="mb-8 fade-up d3">
     <div class="section-card text-center">
-      <p class="font-elegant" style="font-size:.78rem;letter-spacing:.15em;color:rgba(212,165,165,.6);text-transform:uppercase;margin:0 0 6px;">Regalo</p>
-      <h3 id="el-gift-title" class="font-script" style="font-size:2rem;color:#f9a8d4;margin:0 0 10px;"></h3>
-      <p id="el-gift-msg" class="font-elegant" style="font-size:1.1rem;color:rgba(240,208,216,.88);margin:0 0 16px;"></p>
-      <div style="display:flex;flex-direction:column;gap:10px;text-align:left;">
-        <div id="row-alias" class="detail-row hidden"><div><p class="font-display" style="color:#f9a8d4;margin:0 0 2px;">Alias</p><p id="el-alias" class="font-elegant" style="color:rgba(240,208,216,.9);margin:0;word-break:break-all;"></p></div></div>
-        <div id="row-cbu"   class="detail-row hidden"><div><p class="font-display" style="color:#f9a8d4;margin:0 0 2px;">CBU</p><p id="el-cbu" class="font-elegant" style="color:rgba(240,208,216,.9);margin:0;word-break:break-all;"></p></div></div>
-        <div id="row-holder" class="detail-row hidden"><div><p class="font-display" style="color:#f9a8d4;margin:0 0 2px;">Titular</p><p id="el-holder" class="font-elegant" style="color:rgba(240,208,216,.9);margin:0;"></p></div></div>
-        <div id="row-bank"  class="detail-row hidden"><div><p class="font-display" style="color:#f9a8d4;margin:0 0 2px;">Banco</p><p id="el-bank" class="font-elegant" style="color:rgba(240,208,216,.9);margin:0;"></p></div></div>
-      </div>
+      <p class="font-elegant" style="font-size:.78rem;letter-spacing:.15em;color:rgba(240,192,216,.6);text-transform:uppercase;margin:0 0 6px;">Mensaje</p>
+      <h3 class="font-script" style="font-size:2.1rem;color:#fda4cf;margin:0 0 12px;">Una noche especial</h3>
+      <p class="font-elegant" style="font-size:1.15rem;color:rgba(245,220,232,.9);line-height:1.75;margin:0;">
+        Queremos celebrar juntas este cumplea&#241;os rodeadas de las personas que m&#225;s queremos.<br>
+        Va a ser una noche incre&#237;ble y nos encantar&#237;a que seas parte de ella. &#127754;&#10024;
+      </p>
     </div>
   </section>
 
-  <!-- CIERRE -->
-  <section id="sec-closing" class="mb-8 fade-up fade-up-d3">
-    <div class="section-card text-center">
-      <p class="font-elegant" style="font-size:.78rem;letter-spacing:.15em;color:rgba(212,165,165,.6);text-transform:uppercase;margin:0 0 6px;">Mensaje</p>
-      <h3 class="font-script" style="font-size:2rem;color:#f9a8d4;margin:0 0 12px;">Una noche especial</h3>
-      <p id="el-closing" class="font-elegant" style="font-size:1.15rem;color:rgba(240,208,216,.9);line-height:1.7;margin:0;"></p>
-    </div>
-  </section>
-
-  <!-- RSVP -->
-  <section id="sec-rsvp" class="mb-8 fade-up fade-up-d4">
+  <section class="mb-8 fade-up d4">
     <div class="section-card">
-      <p class="font-elegant text-center" style="font-size:.78rem;letter-spacing:.15em;color:rgba(212,165,165,.6);text-transform:uppercase;margin:0 0 6px;">Confirmacion</p>
-      <h3 class="font-script text-center" style="font-size:2rem;color:#f9a8d4;margin:0 0 22px;">❤️ Confirmar asistencia</h3>
-
+      <p class="font-elegant text-center" style="font-size:.78rem;letter-spacing:.15em;color:rgba(240,192,216,.6);text-transform:uppercase;margin:0 0 6px;">Confirmacion</p>
+      <h3 class="font-script text-center" style="font-size:2.1rem;color:#fda4cf;margin:0 0 22px;">&#10084;&#65039; Confirmar asistencia</h3>
       <div id="rsvp-form">
         <div style="margin-bottom:16px;">
-          <label class="font-display" style="font-size:.85rem;color:#f9a8d4;display:block;margin-bottom:6px;">Tu nombre completo</label>
-          <input id="inp-nombre" class="inp" type="text" placeholder="Escribi tu nombre...">
+          <label class="font-display" style="font-size:.85rem;color:#fda4cf;display:block;margin-bottom:6px;">Tu nombre completo</label>
+          <input id="inp-nombre" class="inp" type="text" placeholder="Escrib&#237; tu nombre...">
         </div>
-
         <div style="margin-bottom:16px;">
-          <label class="font-display" style="font-size:.85rem;color:#f9a8d4;display:block;margin-bottom:4px;">¿Vas a asistir?</label>
+          <label class="font-display" style="font-size:.85rem;color:#fda4cf;display:block;margin-bottom:4px;">&#191;Vas a asistir?</label>
           <div class="radio-group">
-            <label class="radio-label"><input type="radio" name="asiste" value="Si" onchange="toggleCantidad()"> 🎉 Si, voy a ir</label>
-            <label class="radio-label"><input type="radio" name="asiste" value="No" onchange="toggleCantidad()"> 😔 No voy a poder</label>
+            <label class="radio-label"><input type="radio" name="asiste" value="Si" onchange="toggleCantidad()"> &#127881; Si, voy a ir</label>
+            <label class="radio-label"><input type="radio" name="asiste" value="No" onchange="toggleCantidad()"> &#128532; No voy a poder</label>
           </div>
         </div>
-
         <div id="blq-cantidad" class="hidden" style="margin-bottom:16px;">
-          <label class="font-display" style="font-size:.85rem;color:#f9a8d4;display:block;margin-bottom:4px;">¿Cuántas personas son? (incluyéndote)</label>
+          <label class="font-display" style="font-size:.85rem;color:#fda4cf;display:block;margin-bottom:4px;">&#191;Cu&#225;ntas personas son? (inclu&#237;ndote)</label>
           <div class="radio-group">
-            <label class="radio-label"><input type="radio" name="cantidad" value="Yo solo"> Yo solo</label>
+            <label class="radio-label"><input type="radio" name="cantidad" value="Yo solo"> Yo sola</label>
             <label class="radio-label"><input type="radio" name="cantidad" value="2"> 2</label>
             <label class="radio-label"><input type="radio" name="cantidad" value="3"> 3</label>
             <label class="radio-label"><input type="radio" name="cantidad" value="4"> 4</label>
@@ -315,262 +165,71 @@
             <label class="radio-label"><input type="radio" name="cantidad" value="6"> 6</label>
           </div>
         </div>
-
         <div style="margin-bottom:20px;">
-          <label class="font-display" style="font-size:.85rem;color:#f9a8d4;display:block;margin-bottom:6px;">🌍 Mensaje (opcional)</label>
-          <textarea id="inp-mensaje" class="inp" rows="3" placeholder="Escribi un mensaje..."></textarea>
+          <label class="font-display" style="font-size:.85rem;color:#fda4cf;display:block;margin-bottom:6px;">&#127757; Mensaje (opcional)</label>
+          <textarea id="inp-mensaje" class="inp" rows="3" placeholder="Dej&#225; un mensaje..."></textarea>
         </div>
-
-        <button onclick="enviar()" style="width:100%;background:linear-gradient(135deg,#5c2535,#8B4559);color:#fff;border:none;border-radius:999px;padding:15px 0;font-family:'Playfair Display',serif;font-size:1.15rem;cursor:pointer;box-shadow:0 4px 18px rgba(139,69,89,.5);transition:transform .15s;" onmousedown="this.style.transform='scale(.97)'" onmouseup="this.style.transform=''">
-          💌 <span id="btn-text">Confirmar asistencia</span>
-        </button>
+        <button onclick="enviar()" style="width:100%;background:linear-gradient(135deg,#8b4c6a,#c084a0);color:#fff;border:none;border-radius:999px;padding:15px 0;font-family:'Playfair Display',serif;font-size:1.15rem;cursor:pointer;box-shadow:0 4px 18px rgba(192,132,160,.5);transition:transform .15s;" onmousedown="this.style.transform='scale(.97)'" onmouseup="this.style.transform=''">&#128140; Confirmar asistencia</button>
       </div>
-
       <div id="rsvp-ok" class="hidden text-center" style="padding:20px 0;">
-        <p class="font-script" style="font-size:2.8rem;color:#f9a8d4;margin:0 0 8px;">✨ Gracias! ✨</p>
-        <p id="rsvp-ok-msg" class="font-elegant" style="font-size:1.2rem;color:rgba(240,208,216,.82);margin:0;"></p>
+        <p class="font-script" style="font-size:2.8rem;color:#fda4cf;margin:0 0 8px;">&#10024; Gracias! &#10024;</p>
+        <p id="rsvp-ok-msg" class="font-elegant" style="font-size:1.2rem;color:rgba(245,220,232,.82);margin:0;"></p>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <div class="text-center pb-8">
-    <p class="font-elegant" style="font-size:.85rem;color:rgba(212,165,165,.35);">Hecho con ❤️</p>
-  </div>
-
-</div>
-</div>
+  <div class="text-center pb-8"><p class="font-elegant" style="font-size:.85rem;color:rgba(240,192,216,.3);">Hecho con &#10084;&#65039;</p></div>
+</div></div>
 
 <script>
-// ── CONFIG KEY ──
-const KEY = 'eventoConfigV1';
-const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSeG0IeQR4JpNIM8qpzhUq-dIlgFc4ButAktVLzkK77NzzKvmA/formResponse';
-
-const DEF = {
-  eventTitle:'', name:'', tagline:'',
-  eventDateTime:'', time:'', venue:'', address:'', city:'',
-  dressCode:'', dressNote:'', closing:'', rsvpText:'',
-  giftTitle:'', giftMessage:'', alias:'', cbu:'', accountHolder:'', bank:'',
-  accent:'#8B4559', photoData:'', audioData:'',
-  showDetails:true, showDressCode:true, showClosing:true,
-  showRsvp:true, showGift:false, showCountdown:true
-};
-
-// ── HELPERS ──
-function el(id){ return document.getElementById(id); }
-function setText(id, v){ const e=el(id); if(e) e.textContent=v||''; }
-function toggle(id, show){ const e=el(id); if(e) e.classList.toggle('hidden', !show); }
-
-function fmtDate(s){
-  if(!s) return '';
-  const d = new Date(s);
-  if(isNaN(d)) return s;
-  return d.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});
-}
-function fmtTime(s){
-  if(!s) return '';
-  const d = new Date(s);
-  if(isNaN(d)) return '';
-  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+' hs';
-}
-
-function hexRgb(h){
-  h=(h||'#8B4559').replace('#','');
-  if(h.length===3) h=h.split('').map(c=>c+c).join('');
-  const n=parseInt(h,16);
-  return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};
-}
-function darken(h,a){const{r,g,b}=hexRgb(h);const f=v=>Math.max(0,Math.round(v*(1-a)));return`rgb(${f(r)},${f(g)},${f(b)})`;}
-function lighten(h,a){const{r,g,b}=hexRgb(h);const f=v=>Math.min(255,Math.round(v+(255-v)*a));return`rgb(${f(r)},${f(g)},${f(b)})`;}
-
-// ── APPLY CONFIG ──
-function applyConfig(cfg){
-  const c = Object.assign({}, DEF, cfg);
-
-  // Fecha/hora
-  let dt = c.eventDateTime;
-  if(!dt && c.eventDate){
-    const tm = c.time ? c.time.match(/(\d{1,2}):(\d{2})/) : null;
-    dt = c.eventDate + 'T' + (tm ? tm[0] : '20:00') + ':00';
-  }
-
-  // Overlay
-  const ovp = el('ov-photo');
-  if(c.photoData && ovp){ ovp.src=c.photoData; ovp.style.display='block'; }
-  const ovn = el('ov-name');
-  if(ovn && c.name) ovn.innerHTML = '✨ '+c.name+' ✨';
-  const ovt = el('ov-tag');
-  if(ovt) ovt.textContent = c.tagline || 'Toca para abrir tu invitacion';
-
-  // Texts
-  setText('el-title', c.eventTitle);
-  setText('el-name', c.name);
-  setText('el-tagline', c.tagline);
-  setText('el-date', fmtDate(dt));
-  setText('el-time', c.time || (dt ? fmtTime(dt) : ''));
-  setText('el-venue', c.venue);
-  setText('el-address', c.address);
-  setText('el-city', c.city);
-  setText('el-dress', c.dressCode);
-  setText('el-dress-note', c.dressNote);
-  setText('el-gift-title', c.giftTitle);
-  setText('el-gift-msg', c.giftMessage);
-  setText('el-alias', c.alias);
-  setText('el-cbu', c.cbu);
-  setText('el-holder', c.accountHolder);
-  setText('el-bank', c.bank);
-  setText('el-closing', c.closing);
-  setText('btn-text', c.rsvpText || 'Confirmar asistencia');
-
-  // Photo
-  if(c.photoData){ const p=el('el-photo'); if(p) p.src=c.photoData; }
-
-  // Audio
-  if(c.audioData){
-    const a = el('audio');
-    if(a){ a.src = c.audioData; a.load(); }
-  }
-
-  // Sections
-  toggle('sec-details', c.showDetails !== false);
-  toggle('sec-dress',   c.showDressCode !== false);
-  toggle('sec-closing', c.showClosing !== false);
-  toggle('sec-rsvp',    c.showRsvp !== false);
-  toggle('sec-gift',    !!c.showGift);
-  toggle('sec-cd',      !!(c.showCountdown && dt));
-
-  // Gift rows
-  toggle('row-alias',  !!c.alias);
-  toggle('row-cbu',    !!c.cbu);
-  toggle('row-holder', !!c.accountHolder);
-  toggle('row-bank',   !!c.bank);
-
-  // Colors
-  document.documentElement.style.setProperty('--accent', c.accent||'#8B4559');
-  document.documentElement.style.setProperty('--accent-dark', darken(c.accent||'#8B4559',.22));
-  document.documentElement.style.setProperty('--accent-light', lighten(c.accent||'#8B4559',.35));
-
-  // Countdown
-  if(dt) startCountdown(dt);
-}
-
-// ── COUNTDOWN ──
-let cdTimer = null;
-function startCountdown(dtStr){
-  clearInterval(cdTimer);
-  const target = new Date(dtStr);
-  if(isNaN(target)) return;
-  function pad(n){ return String(n).padStart(2,'0'); }
+var FORM='https://docs.google.com/forms/d/e/1FAIpQLSeG0IeQR4JpNIM8qpzhUq-dIlgFc4ButAktVLzkK77NzzKvmA/formResponse';
+var TARGET=new Date('2026-08-29T21:00:00');
+function el(id){return document.getElementById(id);}
+function toggle(id,show){var e=el(id);if(e)e.classList.toggle('hidden',!show);}
+var cdT=null;
+function startCountdown(){
+  clearInterval(cdT);
+  function pad(n){return String(n).padStart(2,'0');}
   function tick(){
-    const diff = target - Date.now();
-    if(diff <= 0){
-      ['cd-d','cd-h','cd-m','cd-s'].forEach(id=>setText(id,'00'));
-      toggle('cd-text',false); toggle('cd-done',true);
-      clearInterval(cdTimer); return;
-    }
-    const d=Math.floor(diff/86400000), h=Math.floor(diff%86400000/3600000),
-          m=Math.floor(diff%3600000/60000), s=Math.floor(diff%60000/1000);
-    setText('cd-d',pad(d)); setText('cd-h',pad(h));
-    setText('cd-m',pad(m)); setText('cd-s',pad(s));
-    toggle('cd-text',true); toggle('cd-done',false);
+    var diff=TARGET-Date.now();
+    if(diff<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(function(id){var e=el(id);if(e)e.textContent='00';});toggle('cd-text',false);toggle('cd-done',true);clearInterval(cdT);return;}
+    var d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+    var ed=el('cd-d'),eh=el('cd-h'),em=el('cd-m'),es=el('cd-s');
+    if(ed)ed.textContent=pad(d);if(eh)eh.textContent=pad(h);if(em)em.textContent=pad(m);if(es)es.textContent=pad(s);
+    toggle('cd-text',true);toggle('cd-done',false);
   }
-  tick(); cdTimer = setInterval(tick,1000);
+  tick();cdT=setInterval(tick,1000);
 }
-
-// ── PARTICLES ──
 function makeParticles(){
-  const c=el('ptcl'); if(!c) return;
-  const chars=['✦','✧','·','°','*','˚','⋆'];
-  const n = window.innerWidth < 600 ? 14 : 26;
-  c.innerHTML='';
-  for(let i=0;i<n;i++){
-    const d=document.createElement('div');
-    d.className='particle';
-    d.textContent=chars[Math.floor(Math.random()*chars.length)];
-    d.style.cssText=`left:${Math.random()*100}vw;top:${-5-Math.random()*20}vh;font-size:${10+Math.random()*14}px;color:rgba(212,165,165,${0.3+Math.random()*.6});animation-duration:${9+Math.random()*10}s;animation-delay:${Math.random()*9}s;`;
-    c.appendChild(d);
-  }
+  var c=el('ptcl');if(!c)return;
+  var chars=['\u2726','\u2661','\u22c6','\u00b7','*','\u02da'];
+  var n=window.innerWidth<600?16:28;c.innerHTML='';
+  for(var i=0;i<n;i++){var d=document.createElement('div');d.className='particle';d.textContent=chars[Math.floor(Math.random()*chars.length)];d.style.cssText='left:'+Math.random()*100+'vw;top:'+(-5-Math.random()*20)+'vh;font-size:'+(10+Math.random()*14)+'px;color:rgba(240,192,216,'+(0.3+Math.random()*.6)+');animation-duration:'+(9+Math.random()*10)+'s;animation-delay:'+(Math.random()*9)+'s;';c.appendChild(d);}
 }
-
-// ── AUDIO ──
-function tryPlay(){
-  const a=el('audio'), b=el('audio-btn');
-  if(!a || !a.src) return;
-  a.play()
-    .then(()=>{ if(b){b.style.display='flex';b.textContent='🔊';} })
-    .catch(()=>{ if(b) b.style.display='flex'; });
-}
-function toggleAudio(){
-  const a=el('audio'), b=el('audio-btn');
-  if(!a) return;
-  if(a.paused){ a.play().then(()=>{if(b)b.textContent='🔊';}).catch(()=>{}); }
-  else { a.pause(); if(b) b.textContent='🔇'; }
-}
-
-// ── OPEN ──
-function openInvitation(){
-  const ov=el('overlay'); if(ov) ov.style.display='none';
-  const b=el('audio-btn'); if(b) b.style.display='flex';
-  tryPlay();
-}
-
-// ── RSVP ──
-function toggleCantidad(){
-  const r=document.querySelector('input[name="asiste"]:checked');
-  toggle('blq-cantidad', r && r.value==='Si');
-}
+function tryPlay(){var a=el('audio'),b=el('audio-btn');if(!a)return;a.play().then(function(){if(b){b.style.display='flex';b.textContent='\ud83d\udd0a';}}).catch(function(){if(b)b.style.display='flex';});}
+function toggleAudio(){var a=el('audio'),b=el('audio-btn');if(!a)return;if(a.paused){a.play().then(function(){if(b)b.textContent='\ud83d\udd0a';}).catch(function(){});}else{a.pause();if(b)b.textContent='\ud83d\udd07';}}
+function openInvitation(){var ov=el('overlay');if(ov)ov.style.display='none';var b=el('audio-btn');if(b)b.style.display='flex';tryPlay();}
+function toggleCantidad(){var r=document.querySelector('input[name="asiste"]:checked');toggle('blq-cantidad',r&&r.value==='Si');}
 function enviar(){
-  const nombre=(el('inp-nombre').value||'').trim();
-  const asiste=document.querySelector('input[name="asiste"]:checked');
-  if(!nombre){ alert('Por favor escribi tu nombre.'); return; }
-  if(!asiste){ alert('Por favor indica si vas a asistir.'); return; }
-  const va = asiste.value==='Si';
-  let cant=null;
-  if(va){
-    const cr=document.querySelector('input[name="cantidad"]:checked');
-    if(!cr){ alert('Por favor indica cuántas personas son.'); return; }
-    cant=cr.value;
-  }
-  const msg=(el('inp-mensaje').value||'').trim();
-
-  const fd=new FormData();
-  fd.append('entry.1075135171', nombre);
-  fd.append('entry.1331914687', va ? 'Si' : 'No');
-  if(va && cant)  fd.append('entry.927343248', cant);
-  if(msg)         fd.append('entry.2088091130', msg);
-  fetch(FORM,{method:'POST',mode:'no-cors',body:fd}).catch(()=>{});
-
-  toggle('rsvp-form',false);
-  toggle('rsvp-ok',true);
-  const om=el('rsvp-ok-msg');
-  if(om) om.textContent = va
-    ? 'Confirmado para '+(cant==='Yo solo'?'vos solo':cant+' personas')+'! Te esperamos.'
-    : 'Gracias por avisarnos. Te vamos a extrañar!';
+  var nombre=(el('inp-nombre').value||'').trim();
+  var asiste=document.querySelector('input[name="asiste"]:checked');
+  if(!nombre){alert('Por favor escrib\u00ed tu nombre.');return;}
+  if(!asiste){alert('Por favor indica si vas a asistir.');return;}
+  var va=asiste.value==='Si';var cant=null;
+  if(va){var cr=document.querySelector('input[name="cantidad"]:checked');if(!cr){alert('Por favor indica cu\u00e1ntas personas son.');return;}cant=cr.value;}
+  var msg=(el('inp-mensaje').value||'').trim();
+  var fd=new FormData();
+  fd.append('entry.1075135171',nombre);
+  fd.append('entry.1331914687',va?'Si':'No');
+  if(va&&cant)fd.append('entry.927343248',cant);
+  if(msg)fd.append('entry.2088091130',msg);
+  fetch(FORM,{method:'POST',mode:'no-cors',body:fd}).catch(function(){});
+  toggle('rsvp-form',false);toggle('rsvp-ok',true);
+  var om=el('rsvp-ok-msg');
+  if(om)om.textContent=va?'Confirmado para '+(cant==='Yo solo'?'vos sola':cant+' personas')+'! Las esperamos \u2764\ufe0f':'Gracias por avisarnos. Las vamos a extra\u00f1ar!';
 }
-
-// ── INIT ──
-function loadCfg(){
-  try{ return Object.assign({},DEF,JSON.parse(localStorage.getItem(KEY)||'{}')); }
-  catch(e){ return Object.assign({},DEF); }
-}
-
-window.addEventListener('message',function(e){
-  if(e.data && e.data.type==='INVITACION_CONFIG'){
-    localStorage.setItem(KEY, JSON.stringify(e.data.payload));
-    applyConfig(e.data.payload);
-  }
-  if(e.data && e.data.type==='EVENTO_CONFIG'){
-    localStorage.setItem(KEY, JSON.stringify(e.data.payload));
-    applyConfig(e.data.payload);
-  }
-});
-
-window.addEventListener('DOMContentLoaded',function(){
-  applyConfig(loadCfg());
-  makeParticles();
-  try{ parent.postMessage({type:'INVITACION_READY'},'*'); }catch(e){}
-});
-window.addEventListener('resize', makeParticles);
+window.addEventListener('DOMContentLoaded',function(){makeParticles();startCountdown();});
+window.addEventListener('resize',makeParticles);
 </script>
 </body>
 </html>
