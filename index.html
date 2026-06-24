@@ -1,65 +1,512 @@
-<!-- REEMPLAZAR la sección de confirmación con esto: -->
-<div id="rsvp-form-wrap" class="section-card fade-up d4">
-  <h2 class="font-script text-center text-3xl glow-text mb-1">Confirmar Asistencia</h2>
-  <p class="text-center text-base text-[#f5dce8] mb-5 font-elegant">¡Nos encantaría que nos acompañes!</p>
-  
-  <form id="rsvp-form" onsubmit="return false;">
-    <!-- Nombre -->
-    <div class="mb-4">
-      <label class="block text-sm text-[#f0c0d8] mb-2 font-elegant">Apellido y Nombre Completo *</label>
-      <input id="inp-nombre" class="inp" type="text" placeholder="Escribí tu nombre..." required>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Festejo de Cumpleaños – Maxima y Virginia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #8B4559;
+      --accent-light: #c084a0;
+      --accent-glow: rgba(139,69,89,.45);
+      --bg-dark: #12080e;
+      --text-light: #f5dce8;
+      --text-muted: #e8c4d8;
+      --gold: #d4a853;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100dvh;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    /* ── Background ── */
+    .bg-layer {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,69,89,.35) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 80% 90%, rgba(100,40,70,.25) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 10% 70%, rgba(80,20,50,.2) 0%, transparent 55%),
+        linear-gradient(180deg, #12080e 0%, #1a0b14 50%, #0e0609 100%);
+    }
+
+    .stars {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 55%, rgba(255,220,230,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 15%, rgba(255,255,255,.55) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 70%, rgba(255,200,220,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 85%, rgba(255,255,255,.45) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 25% 40%, rgba(255,240,245,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 35%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5% 60%, rgba(255,210,230,.45) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 45%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 45% 25%, rgba(255,230,240,.55) 0%, transparent 100%);
+    }
+
+    /* ── Layout ── */
+    .wrapper {
+      position: relative; z-index: 1;
+      max-width: 520px; margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(192,132,160,.18);
+      border-radius: 1.25rem;
+      padding: 1.75rem 1.5rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    /* ── Header card ── */
+    .header-card {
+      text-align: center;
+      padding: 2.25rem 1.5rem 2rem;
+    }
+
+    .header-card .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: .75rem;
+    }
+
+    .header-card h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.6rem, 10vw, 3.5rem);
+      line-height: 1.1;
+      color: #fff;
+      text-shadow: 0 0 30px var(--accent-glow), 0 0 60px rgba(139,69,89,.25);
+      margin-bottom: .5rem;
+    }
+
+    .header-card .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Photo ── */
+    .photo-wrap {
+      width: 160px; height: 160px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      border: 2px solid rgba(192,132,160,.45);
+      box-shadow: 0 0 0 6px rgba(139,69,89,.12), 0 8px 28px rgba(0,0,0,.5);
+      overflow: hidden;
+    }
+
+    .photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex; align-items: center; gap: .75rem;
+      margin: 1rem 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: rgba(192,132,160,.25); }
+    .divider-icon { color: var(--gold); font-size: .9rem; }
+
+    /* ── Detail rows ── */
+    .detail-row {
+      display: flex; align-items: flex-start; gap: .9rem;
+      padding: .75rem 0;
+      border-bottom: 1px solid rgba(192,132,160,.1);
+    }
+    .detail-row:last-child { border-bottom: none; }
+
+    .detail-icon {
+      font-size: 1.3rem; min-width: 2rem; text-align: center;
+      margin-top: .05rem;
+    }
+
+    .detail-info {}
+    .detail-label {
+      font-size: .7rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent-light); margin-bottom: .2rem;
+    }
+    .detail-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: #fff; line-height: 1.3;
+    }
+    .detail-sub {
+      font-size: .8rem; color: var(--text-muted); margin-top: .15rem;
+    }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: var(--accent-light);
+      text-align: center;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    /* ── Dress code badge ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: rgba(139,69,89,.2);
+      border: 1px solid rgba(192,132,160,.3);
+      border-radius: 2rem;
+      padding: .4rem 1rem;
+      font-size: .85rem;
+      color: var(--text-muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    /* ── Closing message ── */
+    .closing-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      text-align: center;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── RSVP button ── */
+    .btn-rsvp {
+      display: block; width: 100%;
+      padding: .9rem 1.5rem;
+      border: none; border-radius: 2rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600; font-size: 1rem;
+      letter-spacing: .04em;
+      cursor: pointer; text-decoration: none; text-align: center;
+      box-shadow: 0 4px 24px var(--accent-glow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-rsvp:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 32px var(--accent-glow); }
+    .btn-rsvp:active { transform: scale(.97); }
+
+    /* ── RSVP form ── */
+    .inp {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(192,132,160,.25);
+      border-radius: .65rem;
+      padding: .7rem 1rem;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .9rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .inp:focus { border-color: rgba(192,132,160,.6); }
+    .inp::placeholder { color: rgba(245,220,232,.4); }
+
+    textarea.inp { resize: vertical; min-height: 80px; }
+
+    .form-label {
+      display: block;
+      font-size: .75rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent-light); margin-bottom: .5rem;
+    }
+
+    .radio-group {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+    }
+    .radio-label {
+      display: flex; align-items: center; gap: .4rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(192,132,160,.2);
+      border-radius: 2rem;
+      padding: .35rem .85rem;
+      cursor: pointer; font-size: .85rem;
+      color: var(--text-muted);
+      transition: background .2s, border-color .2s;
+    }
+    .radio-label:hover { background: rgba(139,69,89,.2); }
+    .radio-label input { display: none; }
+    .radio-label:has(input:checked) {
+      background: rgba(139,69,89,.35);
+      border-color: rgba(192,132,160,.5);
+      color: #fff;
+    }
+
+    .hidden { display: none !important; }
+    .mb-4 { margin-bottom: 1rem; }
+
+    /* ── RSVP success ── */
+    #rsvp-ok { text-align: center; }
+    #rsvp-ok .big-emoji { font-size: 3.5rem; margin-bottom: .75rem; }
+
+    /* ── Fade-in animation ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp .7s ease forwards; }
+    .d1 { animation-delay: .1s; }
+    .d2 { animation-delay: .25s; }
+    .d3 { animation-delay: .4s; }
+    .d4 { animation-delay: .55s; }
+    .d5 { animation-delay: .7s; }
+    .d6 { animation-delay: .85s; }
+
+    /* ── Audio pill ── */
+    .audio-pill {
+      position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 100;
+      display: flex; align-items: center; gap: .6rem;
+      background: rgba(18,8,14,.8);
+      border: 1px solid rgba(192,132,160,.3);
+      border-radius: 2rem;
+      padding: .5rem 1rem .5rem .65rem;
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(0,0,0,.5);
+      transition: transform .2s;
+    }
+    .audio-pill:hover { transform: scale(1.04); }
+    .audio-pill-icon { font-size: 1.1rem; }
+    .audio-pill-label { font-size: .75rem; color: var(--text-muted); letter-spacing: .06em; }
+
+    @media (max-width: 400px) {
+      .wrapper { padding: 1.5rem .9rem 4rem; }
+      .card { padding: 1.5rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="stars"></div>
+
+<div class="wrapper">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="card header-card fade-up d1">
+    <p class="eyebrow">✨ Estás invitado/a ✨</p>
+
+    <div class="photo-wrap">
+      <img src="foto.png" alt="Maxima y Virginia" loading="eager" width="160" height="160" onerror="this.parentElement.style.background='rgba(139,69,89,.2)';this.style.display='none'">
     </div>
-    
-    <!-- Asistencia -->
-    <div class="mb-4">
-      <label class="block text-sm text-[#f0c0d8] mb-2 font-elegant">¿Asistirá? *</label>
-      <div class="radio-group">
-        <label class="radio-label">
-          <input type="radio" name="asiste" value="Si" onchange="toggleCantidad()">
-          <span>Sí</span>
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="asiste" value="No" onchange="toggleCantidad()">
-          <span>No</span>
-        </label>
+
+    <h1>Festejo de<br>Cumpleaños</h1>
+    <p class="subtitle">Te invito a celebrar una noche inolvidable</p>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-icon">🌸</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <p style="font-family:'Great Vibes',cursive; font-size:2rem; color:#fff; text-shadow:0 0 20px var(--accent-glow);">
+      Maxima y Virginia
+    </p>
+  </div>
+
+  <!-- ═══ DETALLES ═══ -->
+  <div class="card fade-up d2">
+    <p class="section-title">Detalles del evento</p>
+
+    <div class="detail-row">
+      <div class="detail-icon">📅</div>
+      <div class="detail-info">
+        <div class="detail-label">Fecha</div>
+        <div class="detail-value">29 de Agosto 2026</div>
       </div>
     </div>
-    
-    <!-- Cantidad (solo si asiste) -->
-    <div id="blq-cantidad" class="mb-4 hidden">
-      <label class="block text-sm text-[#f0c0d8] mb-2 font-elegant">¿Cuántas personas? *</label>
-      <div class="radio-group">
-        <label class="radio-label"><input type="radio" name="cantidad" value="1"><span>Yo solo</span></label>
-        <label class="radio-label"><input type="radio" name="cantidad" value="2"><span>+1</span></label>
-        <label class="radio-label"><input type="radio" name="cantidad" value="3"><span>+2</span></label>
-        <label class="radio-label"><input type="radio" name="cantidad" value="4"><span>+3</span></label>
-        <label class="radio-label"><input type="radio" name="cantidad" value="5"><span>+4</span></label>
-        <label class="radio-label"><input type="radio" name="cantidad" value="6"><span>+5</span></label>
-        <label class="radio-label"><input type="radio" name="cantidad" value="7"><span>+6</span></label>
-        <label class="radio-label"><input type="radio" name="cantidad" value="8"><span>+7</span></label>
+
+    <div class="detail-row">
+      <div class="detail-icon">🕘</div>
+      <div class="detail-info">
+        <div class="detail-label">Horario</div>
+        <div class="detail-value">21:00 hs a 04:00 hs</div>
       </div>
     </div>
-    
-    <!-- Mensaje -->
-    <div class="mb-4">
-      <label class="block text-sm text-[#f0c0d8] mb-2 font-elegant">Mensaje (opcional)</label>
-      <textarea id="inp-mensaje" class="inp" rows="3" placeholder="Dejanos un mensaje..."></textarea>
+
+    <div class="detail-row">
+      <div class="detail-icon">🏛️</div>
+      <div class="detail-info">
+        <div class="detail-label">Salón</div>
+        <div class="detail-value">Fiestas Presente</div>
+        <div class="detail-sub">Laprida 3027 · Quilmes, Buenos Aires</div>
+      </div>
     </div>
-    
-    <!-- Botón de enviar -->
-    <button id="btn-rsvp" onclick="enviar()" class="w-full py-3 px-6 rounded-full font-display text-white font-semibold text-lg transition-all duration-300 hover:scale-105 active:scale-95" style="background: linear-gradient(135deg,#8b4c6a,#c084a0); box-shadow: 0 4px 22px rgba(192,132,160,.55);">
-      <span id="btn-rsvp-text">✨ Enviar Confirmación</span>
-      <span id="btn-rsvp-loading" class="hidden">⏳ Enviando...</span>
+  </div>
+
+  <!-- ═══ VESTIMENTA ═══ -->
+  <div class="card fade-up d3" style="text-align:center;">
+    <p class="section-title">Vestimenta</p>
+    <span class="badge">👗 Elegante-Sport</span>
+  </div>
+
+  <!-- ═══ MENSAJE DE CIERRE ═══ -->
+  <div class="card fade-up d4" style="padding: 1.5rem;">
+    <p class="closing-text">
+      Tu presencia es muy importante para mí.<br>
+      Te espero para compartir esta noche especial 🌹
+    </p>
+  </div>
+
+  <!-- ═══ FORMULARIO RSVP ═══ -->
+  <div id="rsvp-form-wrap" class="card fade-up d5">
+    <p class="section-title">Confirmar Asistencia</p>
+    <p style="text-align:center; font-size:.9rem; color:var(--text-muted); margin-bottom:1.25rem; font-family:'Cormorant Garamond',serif; font-style:italic;">¡Nos encantaría que nos acompañes!</p>
+
+    <form id="rsvp-form" onsubmit="return false;">
+      <div class="mb-4">
+        <label class="form-label">Apellido y Nombre Completo *</label>
+        <input id="inp-nombre" class="inp" type="text" placeholder="Escribí tu nombre..." required>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">¿Asistirá? *</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="asiste" value="Si" onchange="toggleCantidad()"><span>✅ Sí</span></label>
+          <label class="radio-label"><input type="radio" name="asiste" value="No" onchange="toggleCantidad()"><span>❌ No</span></label>
+        </div>
+      </div>
+
+      <div id="blq-cantidad" class="mb-4 hidden">
+        <label class="form-label">¿Cuántas personas? *</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="cantidad" value="1"><span>Yo solo</span></label>
+          <label class="radio-label"><input type="radio" name="cantidad" value="2"><span>+1</span></label>
+          <label class="radio-label"><input type="radio" name="cantidad" value="3"><span>+2</span></label>
+          <label class="radio-label"><input type="radio" name="cantidad" value="4"><span>+3</span></label>
+          <label class="radio-label"><input type="radio" name="cantidad" value="5"><span>+4</span></label>
+          <label class="radio-label"><input type="radio" name="cantidad" value="6"><span>+5</span></label>
+          <label class="radio-label"><input type="radio" name="cantidad" value="7"><span>+6</span></label>
+          <label class="radio-label"><input type="radio" name="cantidad" value="8"><span>+7</span></label>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Mensaje (opcional)</label>
+        <textarea id="inp-mensaje" class="inp" rows="3" placeholder="Dejanos un mensaje..."></textarea>
+      </div>
+
+      <button id="btn-rsvp" onclick="enviar()" class="btn-rsvp">
+        <span id="btn-rsvp-text">✨ Enviar Confirmación</span>
+        <span id="btn-rsvp-loading" class="hidden">⏳ Enviando...</span>
+      </button>
+    </form>
+  </div>
+
+  <!-- Éxito RSVP -->
+  <div id="rsvp-ok" class="card hidden fade-up">
+    <div class="big-emoji">🎉</div>
+    <p class="section-title" style="margin-bottom:.5rem;">¡Gracias!</p>
+    <p id="rsvp-ok-msg" style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--text-muted); text-align:center;"></p>
+    <button onclick="document.getElementById('rsvp-form-wrap').classList.remove('hidden');document.getElementById('rsvp-ok').classList.add('hidden');" style="margin-top:1rem; display:block; width:100%; padding:.7rem; border-radius:2rem; background:rgba(192,132,160,.15); border:1px solid rgba(192,132,160,.3); color:var(--text-muted); cursor:pointer; font-family:'Montserrat',sans-serif;">
+      Enviar otra respuesta
     </button>
-  </form>
+  </div>
+
+  <!-- Pie de página -->
+  <p class="fade-up d6" style="text-align:center; font-size:.72rem; color:rgba(245,220,232,.3); letter-spacing:.08em;">
+    Con amor 🌸
+  </p>
 </div>
 
-<!-- Mensaje de éxito (inicialmente oculto) -->
-<div id="rsvp-ok" class="section-card hidden text-center">
-  <div class="text-6xl mb-4">🎉</div>
-  <h2 class="font-script text-3xl glow-text mb-2">¡Gracias!</h2>
-  <p id="rsvp-ok-msg" class="text-[#f5dce8] font-elegant text-lg"></p>
-  <button onclick="toggle('rsvp-form-wrap',true);toggle('rsvp-ok',false);" class="mt-4 px-6 py-2 rounded-full text-white font-elegant" style="background: rgba(192,132,160,.3); border: 1px solid rgba(192,132,160,.4);">
-    Enviar otra respuesta
-  </button>
-</div> 
+<!-- ═══ AUDIO ═══ -->
+<audio id="bg-audio" loop>
+  <source src="BLACKPINK%20-%20Tally%20(Official%20Audio).mp3" type="audio/mpeg">
+</audio>
+<div class="audio-pill" id="audio-btn" onclick="toggleAudio()" title="Música">
+  <span class="audio-pill-icon" id="audio-icon">🔇</span>
+  <span class="audio-pill-label" id="audio-label">Reproducir música</span>
+</div>
+
+<script>
+  // ── Cantidad ──
+  function toggleCantidad() {
+    const asiste = document.querySelector('input[name="asiste"]:checked')?.value;
+    document.getElementById('blq-cantidad').classList.toggle('hidden', asiste !== 'Si');
+  }
+
+  // ── RSVP ──
+  function enviar() {
+    const nombre  = document.getElementById('inp-nombre').value.trim();
+    const asiste  = document.querySelector('input[name="asiste"]:checked')?.value;
+    const cantidad = document.querySelector('input[name="cantidad"]:checked')?.value || '1';
+    const mensaje = document.getElementById('inp-mensaje').value.trim();
+
+    if (!nombre) { alert('Por favor ingresá tu nombre.'); return; }
+    if (!asiste)  { alert('Por favor indicá si asistirás.'); return; }
+    if (asiste === 'Si' && !document.querySelector('input[name="cantidad"]:checked')) {
+      alert('Por favor indicá cuántas personas asisten.'); return;
+    }
+
+    const btnText    = document.getElementById('btn-rsvp-text');
+    const btnLoading = document.getElementById('btn-rsvp-loading');
+    btnText.classList.add('hidden');
+    btnLoading.classList.remove('hidden');
+
+    const FORM_URL = 'https://forms.gle/MonqZjCEx5o1ZbG7';
+    const params = new URLSearchParams({
+      'entry.nombre': nombre,
+      'entry.asiste': asiste,
+      'entry.cantidad': asiste === 'Si' ? cantidad : '0',
+      'entry.mensaje': mensaje
+    });
+
+    fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: params })
+      .catch(() => {})
+      .finally(() => {
+        btnText.classList.remove('hidden');
+        btnLoading.classList.add('hidden');
+        document.getElementById('rsvp-form-wrap').classList.add('hidden');
+        const ok = document.getElementById('rsvp-ok');
+        ok.classList.remove('hidden');
+        document.getElementById('rsvp-ok-msg').textContent =
+          asiste === 'Si'
+            ? `¡Qué alegría, ${nombre}! Ya tenemos tu confirmación. ¡Nos vemos el 29 de Agosto! 🎉`
+            : `Gracias ${nombre} por avisarnos. ¡Te vamos a extrañar! 💕`;
+      });
+  }
+
+  // ── Audio ──
+  const audio = document.getElementById('bg-audio');
+  const icon  = document.getElementById('audio-icon');
+  const label = document.getElementById('audio-label');
+  let playing = false;
+
+  function toggleAudio() {
+    if (playing) {
+      audio.pause();
+      icon.textContent  = '🔇';
+      label.textContent = 'Reproducir música';
+      playing = false;
+    } else {
+      audio.play().then(() => {
+        icon.textContent  = '🎵';
+        label.textContent = 'Pausar música';
+        playing = true;
+      }).catch(() => {});
+    }
+  }
+</script>
+</body>
+</html>
