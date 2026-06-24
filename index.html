@@ -52,6 +52,9 @@
     </div>
   </div>
 
+  <!-- Iframe oculto para recibir la respuesta del form de Google sin redirigir -->
+  <iframe name="gf_hidden" style="display:none;" aria-hidden="true"></iframe>
+
   <audio id="bg-audio" loop crossorigin="anonymous"></audio>
   <button id="audio-btn" onclick="toggleAudio()" style="position:fixed;bottom:20px;right:20px;z-index:9998;background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:white;border:none;border-radius:50%;width:52px;height:52px;font-size:20px;cursor:pointer;box-shadow:0 4px 15px rgba(139,69,89,0.5);display:none;">&#128266;</button>
 
@@ -287,6 +290,15 @@ function onAsistenciaChange(){
   if(radio&&radio.value==='Si')block.classList.remove('hidden-block');
   else block.classList.add('hidden-block');
 }
+
+// Mapea el numero de personas al texto exacto de la opcion en Google Forms
+function mapAcompanantes(cantidad){
+  const n=parseInt(cantidad,10);
+  if(isNaN(n)||n<=1) return 'Yo solo/Sola';
+  var acomp=n-1;
+  return '+'+acomp+(acomp===1?' acompañante':' acompañantes');
+}
+
 function enviarRSVP(){
   const nombre=document.getElementById('rsvp-nombre').value.trim();
   const radioAsis=document.querySelector('input[name="asistencia"]:checked');
@@ -297,17 +309,34 @@ function enviarRSVP(){
     const cant=document.getElementById('rsvp-cantidad').value.trim();
     if(!cant||isNaN(cant)||parseInt(cant)<1){alert('Por favor indica cuantas personas son en total.');return;}
   }
-  const cantidad=va?document.getElementById('rsvp-cantidad').value:'';
-
-  // Enviar al Google Form con los entry IDs reales
-  const formData=new FormData();
-  formData.append('entry.1075135171', nombre);
-  formData.append('entry.1331914687', va?'Si':'No');
-  if(va) formData.append('entry.927343248', cantidad);
-
+  const cantidad=va?document.getElementById('rsvp-cantidad').value:'1';
   const targetUrl=currentConfig.formUrl||FORM_URL;
-  fetch(targetUrl,{method:'POST',mode:'no-cors',body:formData})
-    .catch(function(){/* no-cors siempre falla silenciosamente, es normal */});
+
+  // Enviar con formulario oculto + iframe (más confiable que fetch para Google Forms)
+  var form=document.createElement('form');
+  form.method='POST';
+  form.action=targetUrl;
+  form.target='gf_hidden';
+
+  var campos={
+    'entry.1075135171': nombre,
+    'entry.1331914687': va?'Si':'No',
+    'entry.927343248': mapAcompanantes(cantidad),
+    'entry.2088091130': ''
+  };
+
+  Object.keys(campos).forEach(function(name){
+    var input=document.createElement('input');
+    input.type='hidden';
+    input.name=name;
+    input.value=campos[name];
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+  // Limpiar el form del DOM luego de enviarlo
+  setTimeout(function(){document.body.removeChild(form);},1000);
 
   document.getElementById('rsvp-form').style.display='none';
   const success=document.getElementById('rsvp-success');
